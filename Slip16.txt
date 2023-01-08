@@ -1,0 +1,72 @@
+		Slip 16
+1.Write a program to sort a matrix using insertion sort and check if the
+resultant matrix is upper triangular or not.
+
+object UpperTrang {
+	def main(args: Array[String]): Unit = 
+	{
+
+    var A=Array.ofDim[Int](100,100)
+    println("Enter no. of rows :: ")
+    var m= scala.io.StdIn.readInt()
+        println("\nEnter no. of cols :: ")
+    var n = scala.io.StdIn.readInt()
+        printf("\nEnter values to the matrix :: \n")
+        for (i <- 0 to m-1)
+        {
+            for (j <- 0 to n-1)
+            {
+              A(i)(j)=scala.io.StdIn.readInt()
+              println(A(i)(j)+" ");
+                 
+            }
+        }
+ 
+    println("\nThe given matrix is ::");
+ 
+        for (i <- 0 to m-1)
+        {
+            for (j <- 0 to n-1)
+            {
+                print(A(i)(j)+"\t");
+            }
+            print("\n\n");
+        }
+   var isUpper = 1;
+    for(row<-0 to m-1)
+    {
+        for(col<-0 to n-1)
+        {
+            if(col<row && A(row)(col)!=0)
+            {
+                isUpper = 0;
+            }
+        }
+    }
+    if(isUpper==1)
+    {
+        println("\nThis is a Upper triangular matrix")
+        for(row<-0 to m-1)
+        {
+            for(col<-0 to n-1)
+            {
+                if(A(row)(col)!= 0)
+                {
+                    print(A(row)(col)+"\t");
+                }
+                else
+                {
+                    print("\t");
+                }
+ 
+            }
+        print("\n\n");
+        }
+    }
+    else
+    {
+        print("\nThis is Not a Upper triangular matrix.");
+    }
+ 
+  }
+}

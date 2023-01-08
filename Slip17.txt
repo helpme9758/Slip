@@ -1,0 +1,76 @@
+Slip No - 17
+1.Scala
+
+1.Create abstract class Shape with abstract functions volume() and 
+display(). Extend two classes Cube and Cylinder from it. Create 
+objects of Cube and Cylinder, Calculate volume of each and display 
+it
+
+abstract class Shapes() {
+	def Volume(): Float
+	def Display()
+}
+
+class Cube(var l: Float = 0.0f) extends Shapes {
+	override def Volume(): Float = {
+		return l * l * l
+	}
+	override def Display() {
+		println("Volume of Cube : " + Volume())
+	}
+}
+
+class Cylinder(var r: Float = 0.0f, var h: Float = 0.0f) extends Shapes {
+	override def Volume(): Float = {
+		return scala.math.Pi.asInstanceOf[Float] * r * r * h
+	}
+	override def Display() {
+		println("Volume of Cylinder : " + Volume())
+	}
+}
+
+object HelloWorld {
+	def main(args: Array[String]) {
+		var cube = new Cube(5.0f)
+		var cylinder = new Cylinder(2.0f, 10.0f)
+
+		cube.Display()
+		cylinder.Display()
+	}
+}
+-------------------------------------------------------------------------
+
+2.Mongo
+
+1. Model the following Online Mobile Shopping information as a 
+document database.
+Consider online mobile shopping where the customer can get 
+different models from different brands. Customers can rate the 
+brands and the models individually.
+2. Assume appropriate attributes and collections as per the query 
+requirements. [5]
+3. Insert at least 10 documents in each collection. [10]
+4. Answer the following Queries.
+a. List the mobiles having RAM and ROM as 3GB and 
+32GB. [21/2 ]
+b. List the customers who bought Samsung J6. [21/2 ]
+c. List the names of the distinct brands available. Also 
+display the name of the brand with highest rating. [5]
+d. List all the customers in ascending order who bought 
+iPhone 7plus. [5]
+
+
+db.customer.insert({cname:"mukesh",modelname:"samsungj6",amount:20000})
+db.customer.insert({cname:"abhijeet",modelname:"samsungj6",amount:20060})
+db.customer.insert({cname:"manasi",modelname:"iphone7+",amount:30060})
+db.customer.insert({cname:"manisha",modelname:"iphone7+",amount:30070})
+db.customer.insert({cname:"dipak",modelname:"iphone7+",amount:30800})
+
+db.shopping.insert({brandname:"samsung",rate:6,model:[{mname:"s40",ram:"3GB",rom:"32 GB",rate:4},{mname:"j6",ram:"4GB",rom:"32GB",rate:7},{mname:"j7",ram:"6GB",rom:"64GB",rate:6}]})
+db.shopping.insert({brandname:"vivo",rate:8,model:[{mname:"Y55",ram:"3GB",rom:"32GB",rate:6},{mname:"Y69",ram:"4GB",rom:"32GB",rate:4},{mname:"V5",ram:"6GB",rom:"64GB",rate:6}]})
+db.shopping.insert({brandname:"Apple",rate:9,model:[{mname:"Iphone X",ram:"3GB",rom:"32GB",rate:8},{mname:"Iphone 11",ram:"4GB",rom:"32GB",rate:8},{mname:"Iphone 12",ram:"6GB",rom:"64GB",rate:8}]})
+
+a) db.shopping.find({"model.ram":"3GB","model.rom":"32GB"})
+b) db.customer.find({modelname:"samsungj6"})
+c) db.shopping.aggregate([{"$sort":{"rate":-1}},{"$limit":1},{$group:{_id:"$brandname"}}])
+d) db.customer.aggregate({$match:{modelname:"iphone7+"}},{$project:{_id:"$cname"}},{$sort:{"_id":1}}

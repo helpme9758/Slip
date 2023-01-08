@@ -1,0 +1,59 @@
+Slip 18
+1.Scala
+
+1. Create array of strings and read a new string from user. Display all the 
+srings from the array that contain the new string.
+
+object strdisp
+{
+	def main(args:Array[String])
+	{
+	var str:Array[String]=Array("HelloGoodMorning","HelloGoodNight","HelloGoodAfternoon")
+	var str1=" "
+	println("Enter string:")
+	str1=readLine()
+	var str2=str :+str1
+	for(j<-str2)
+	{
+	println(j)
+	}
+	}
+}
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+2.Mongo
+
+1. Model the following Tours information as a document 
+database.
+A tour will consider the source and destination. Destination 
+may be all around the world. The tours are planned using 
+different tourism industries. The industries provide the 
+complete information before selecting a particular package. 
+Customers select different packages according to their 
+requirements and can rate/review the tourism industry.
+2. Assume appropriate attributes and collections as per the query 
+requirements. [5]
+3. Insert at least 10 documents in each collection. [10]
+4. Answer the following Queries.
+a. List the details of packages provided by kesari. [21/2 ]
+b. List the highest rated tourism industry. [21/2 ]
+c. List all the details of expenses made by John on his first 
+3 trips. Also display the total expenses. [5]
+d. List the names of the customers who went on a tour to 
+Shillong. [5]
+
+
+db.tourism .insert({name:"veenaword",rate:9,package:[{pname:"shillong",cost:10000},{pname:"gujart",cost:7000},{pname:"karnataka",cost:6000}]})
+db.tourism.insert({name:"rohit",rate:7,package:[{pname:"shillong",cost:10000},{pname:"rujan",cost:7000}]})
+db.tour.insert({sourc:"john",destination:"shillong",toerisumName:"veenaword",tourisumrate:8000,expense:20000,year:2018,customer:[{cname:"mukesh",city:"pune"},{cname:"abhijeetsangita",city:"baramati"},{cname:"manisha",city:"mumbai"},{cname:"manasi",city:"latur"}]})
+db.tour.insert({sourc:"john",destination:"karnataka",toerisumName:"veenaword",tourisumrate:80090,expense:20900,year:2017,customer:[{cname:"mukesh",city:"pune"},{cname:"abhijeetsangita",city:"baramati"},{cname:"manisha",city:"15no"},{cname:"manasi",city:"latur"}]})
+db.tour.insert({sourc:"john",destination:"rajasthan",toerisumName:"rohit",tourisumrate:6000,expense:30400,year:2019,customer:[{cname:"mukesh",city:"pune"},{cname:"abhijeetsangita",city:"baramati"},{cname:"manisha",city:"15no"},{cname:"manasi",city:"latur"}]})
+db.tour.insert({sourc:"john",destination:"taj",toerisumName:"rohit",tourisumrate:60090,expense:10400,year:2016,customer:[{cname:"mukesh",city:"pune"},{cname:"abhijeetsangita",city:"baramati"},{cname:"manisha",city:"15no"},{cname:"manasi",city:"latur"}]})
+
+
+db.tourism.find({name:"Kesari Travels"}).pretty();
+db.tourism.find().sort({"rate":-1}).limit(1).pretty();
+db.tour.aggregate({$match:{"source":"john"}},{"$sort":{"source":1}},{"$limit":3},{"$group":{"_id":"john","count":{"$sum":"$expense"}}})
+db.tour.find({"destination":"shillong"}).pretty();

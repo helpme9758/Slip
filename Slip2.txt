@@ -1,0 +1,64 @@
+			Slip 2
+1. Write a program to read two strings. Find the occurrence of second
+string in the first string. Reverse the case of each occurrence in the
+string and display resultant string.
+
+object occur
+{
+def main(args:Array[String])
+{
+val sc=new java.util.Scanner(System.in) // to take input from cmd
+println("Enter first string")
+val first= sc.nextLine()
+println("Enter second string")
+val second=sc.nextLine()
+if(first.contains(second)==true)
+{
+println("Second string is part of first string")
+/*var n= first.revers(second,null)
+println("After remove second in first string:-\t"+n)*/
+}
+else
+{
+println("Second String is not part of first string")
+}
+}
+}
+
+
+2. Model the following Dairy Brand information as a graph model ,
+and answer the following queries using Cypher.
+There are various dairy brands like Amul, Go, Britannia, Gokul
+etc. Their popularity varies across different states in India. The
+popularity is measured as %, with a high popularity defined as
+>=90%, Medium Popularity between 50 to 90%, and Low
+popularity <50%
+
+create(b:Brands{name:"Gokul",popularity:"95%"})return b;
+create(b:Brands{name:"Amul",popularity:"75%"})return b;
+create(b:Brands{name:"Britannia",popularity:"45%"})return b;
+create(p:Products{name:"Cheese"})return p;
+create(p:Products{name:"Curd"})return p;
+create(p:Products{name:"Milk"})return p;
+create(p:Products{name:"Butter"})return p;
+create(c:Category{name:"Low Fat"})return c;
+create(c:Category{name:"High Fat"})return c;
+create(c:Category{name:"Medium Fat"})return c;
+match (b:Brands),(p:Products) where b.name="Amul" and p.name="Cheese" create (b)-[:has_product]->(p) return b,p;
+match (b:Brands),(p:Products) where b.name="Gokul" and p.name="Milk" create (b)-[:has_product]->(p) return b,p;
+match (c:Category),(p:Products) where p.name="Curd" and c.name="Medium Fat" create (p)-[:has_category]->(c) return p,c;
+match (c:Category),(p:Products) where p.name="Milk" and c.name="Low Fat" create (p)-[:has_category]->(c) return p,c;
+match (c:Category),(p:Products) where p.name="Cheese" and c.name="High Fat" create (p)-[:has_category]->(c) return p,c;
+
+1.
+match (b:Brands) return *;
+
+2.
+MATCH (b:Brands) where b.popularity>="90%" return b.name;
+
+3.
+MATCH (b:Brands),(p:Products) where p.name="Cheese" and b.popularity>="30%" return b.name;
+
+4.
+MATCH (b:Brands),(c:Category),(p:Products) where c.name="Low Fat" and (b)-[:has_product]->(p)-[:has_category]->(c)  return b.name;
+

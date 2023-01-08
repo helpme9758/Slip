@@ -1,0 +1,96 @@
+		Slip 4
+1. Create an abstract class Order (id, description). Derive two classes
+PurchaseOrder and SalesOrder with details of Supplier and Customer.
+Create object of each PurchaseOrder And SalesOrder. Display the
+details of all supplier and customers.
+
+abstract class Order()
+{
+var orderid:Int=0
+var odescription:String=" ";
+}
+class PurchaseOrder( var oid:Int,val descrip:String,var sid:Int,var
+sname:String,var pno:Long) extends Order()
+{
+orderid=oid;
+odescription=descrip;
+def display()
+{
+println("Order Id:"+orderid);
+println("Description:"+odescription);
+println("Supplier Id:"+sid);
+println("Supplier Name:"+sname);
+println("Phone Number:"+pno);
+}
+}
+class SalesOrder(var oid:Int,val descrip:String,var cid:Int,var
+cname:String,var pno:Long) extends Order()
+{
+orderid=oid;
+odescription=descrip;
+def display()
+{
+println("Order Id:"+orderid);
+println("Description:"+odescription);
+println("Customer Id:"+cid);
+println("Customer Name:"+cname);
+println("Phone Number:"+pno);
+}
+}
+object sup_ord
+{
+def main(args:Array[String])
+{
+var c1=new SalesOrder(1,"TwoLaptops",200,"XYZ",233221);
+var s1=new PurchaseOrder(2,"ThreeComputers",101,"ABC",211231);
+println("Purchase Order");
+println("--------------------------------------------");
+c1.display();
+println("Sales Orders");
+println("--------------------------------------------");
+s1.display();
+}
+}
+
+
+2. Model the following Furniture Showroom information as a graph
+model, and answer the queries using Cypher.
+Consider a Furniture showroom with different types of furnitures like
+sofas sets, tea tables, cupboards, beds, dining tables, etc. Showroom is
+divided into different sections, one section for each furniture type,
+Each section handled by a sales staff. A sales staff can handle one or
+more sections. Customer may enquire about furniture. An enquiry
+may result in a purchase by the customer
+
+create(f:Furniture{type:"sofa sets",moving:"fast_moving"})return f;
+create(f:Furniture{type:"tea tables",moving:"fast_moving"})return f;
+create(f:Furniture{type:"cupboards",moving:"slow_moving"})return f;
+create(f:Furniture{type:"beds",moving:"slow_moving"})return f;
+create(f:Furniture{type:"dining table",moving:"fast_moving"})return f;
+create(s:Sales_staff{name:"Mr. Satish"})return s;
+create(s:Sales_staff{name:"Mr. Rohit"})return s;
+create(s:Sales_staff{name:"Mr. Shubham"})return s;
+create(c:Customer{name:"Tanvi",orderdetail:"enquiry"})return c;
+create(c:Customer{name:"Renuka",orderdetail:"purchased"})return c;
+create(c:Customer{name:"Ashish",orderdetail:"enquiry"})return c;
+match(f:Furniture),(s:Sales_staff) where f.type="beds" and s.name="Mr. Satish" create (f)-[:has_salesman]->(s) return s,f;
+match(f:Furniture),(s:Sales_staff) where f.type="sofa sets" and s.name="Mr. Satish" create (f)-[:has_salesman]->(s) return s,f;
+match(f:Furniture),(s:Sales_staff) where f.type="dining table" and s.name="Mr. Rohit" create (f)-[:has_salesman]->(s) return s,f;
+match(f:Furniture),(s:Sales_staff) where f.type="cupboards" and s.name="Mr. Rohit" create (f)-[:has_salesman]->(s) return s,f;
+match(f:Furniture),(s:Sales_staff) where f.type="cupboards" and s.name="Mr. Rohit" create (f)-[:has_salesman]->(s) return s,f;
+match(f:Furniture),(s:Sales_staff) where f.type="tea tables" and s.name="Mr. Shubham" create (f)-[:has_salesman]->(s) return s,f;
+match(f:Furniture),(c:Customer) where f.type="tea tables" and c.name="Ashish" create (f)-[:summary]->(c) return c,f;
+match(f:Furniture),(c:Customer) where f.type="sofa sets" and c.name="Tanvi" create (f)-[:summary]->(c) return c,f;
+match(f:Furniture),(c:Customer) where f.type="beds" and c.name="Renuka" create (f)-[:summary]->(c) return c,f;
+
+1.
+match (f:Furniture) return *;
+
+2.
+match (f:Furniture),(s:Sales_staff) where s.name="Mr. Satish" and (f)-[:has_salesman]->(s) return f.type;
+
+3.
+match (c:Customer) where c.orderdetail="enquiry" return c.name ;
+
+4.
+match (f:Furniture) where f.moving="fast_moving" return *;

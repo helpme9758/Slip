@@ -1,0 +1,65 @@
+		Slip 8
+
+1. Write a program to calculate sum of all perfect numbers between 1 and
+100. Display perfect numbers also.
+
+object  Perfect
+{
+    def main(args : Array[String])
+    {
+        var sum2=0
+        for(i <- 1 to 100)
+        {
+            var sum =0;
+            var n = i;
+            for(j <- 1 to n-1)
+            {
+                if(n % j == 0)
+                {
+                    sum += j
+                }
+            }
+            if(sum == n)
+                println(n + " is a perfect number")
+		    sum2=n;
+           // else
+                //println(n + " is not a perfect number")
+        }
+    }
+}
+
+
+2. 
+create (d:Doctor {name:"Rohit",type:"own clinic",area:"Camp Area"}) return d;
+create (d:Doctor {name:"Manoj",type:"own clinic",area:"Kothrud"}) return d;
+create (d:Doctor {name:"Dr. Kulkarni",type:"visit",area:"Bavdhan"}) return d;
+create (s:Specialization {name:"Pediatric"}) return s;
+create (s:Specialization {name:"Gynaec"}) return s;
+create (s:Specialization {name:"Heart Specialist"}) return s;
+create (s:Specialization {name:"Cancer Specialist"}) return s;
+create (p:Person {name:"Ashish",review:"5 star"}) return p;
+create (p:Person {name:"Tanvi",review:"3 star"}) return p;
+create (p:Person {name:"Nikhil",review:"4 star"}) return p;
+create (p:Person {name:"Renuka",review:"4 star"}) return p;
+match(d:Doctor),(s:Specialization) where d.name="Rohit" and s.name="Pediatric" create (d)-[:has_Specialization]->(s) return d,s;
+match(d:Doctor),(s:Specialization) where d.name="Manoj" and s.name="Gynaec" create (d)-[:has_Specialization]->(s) return d,s;
+match(d:Doctor),(s:Specialization) where d.name="Dr. Kulkarni" and s.name="Heart Specialist" create (d)-[:has_Specialization]->(s) return d,s;
+match(d:Doctor),(s:Specialization) where d.name="Dr. Kulkarni" and s.name="Cancer Specialist" create (d)-[:has_Specialization]->(s) return d,s;
+match(d:Doctor),(p:Person) where d.name="Dr. Kulkarni" and p.name="Ashish" create (d)-[:has_review]->(p) return d,p;
+match(d:Doctor),(p:Person) where d.name="Dr. Kulkarni" and p.name="Tanvi" create (d)-[:has_review]->(p) return d,p;
+match(d:Doctor),(p:Person) where d.name="Rohit" and p.name="Renuka" create (d)-[:has_review]->(p) return d,p;
+match(d:Doctor),(p:Person) where d.name="Manoj" and p.name="Nikhil" create (d)-[:has_review]->(p) return d,p;
+
+
+1.
+match(d:Doctor),(s:Specialization) where d.area="Camp Area" and s.name="Pediatric" and (d)-[:has_Specialization]->(s) return d.name;
+
+2.
+match(d:Doctor) where d.type="own clinic" return d.name;
+
+3.
+match(d:Doctor),(s:Specialization) where d.area="Kothrud" and s.name="Gynaec" and (d)-[:has_Specialization]->(s) return d.name;
+
+4.
+match(d:Doctor),(p:Person) where d.name="Dr. Kulkarni" and (d)-[:has_review]->(p) return p.review;
+

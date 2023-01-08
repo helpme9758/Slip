@@ -1,0 +1,78 @@
+		Slip 5
+1. Write a program to create a MAP with empname and deptname. Print details of all 
+employees working in the same department, as “Mr. Joshi”.
+
+class Employee(var ename:String,var dept:String)
+{
+def display()
+{
+println("---------------------------");
+println("Name:"+ename);
+println("Department Name:"+dept)
+}
+}
+object emp
+{
+def main(args:Array[String])
+{
+val e1=new Employee("Vishnu","finance");
+val e2=new Employee("Sumit","finance");
+val e3= new Employee("Paresh","Marketing");
+val e4 =new Employee("Tushar","Marketing");
+var e5=new Employee("Akshay","Marketing");
+var m1:Map[Int,Employee]=Map(1->e1,2->e2,3->e3,4->e4,5->e5);
+for((k,v)<-m1)
+{
+if(v.dept.equalsIgnoreCase("marketing"))
+v.display()
+}
+}
+}
+
+2.
+create (s:Section {name:"Male"}) return s;
+create (s:Section {name:"Female"}) return s;
+create (s:Section {name:"Kids"}) return s;
+create (a:Apparel {name:"Kurta",stock:"10"}) return a;
+create (a:Apparel {name:"Saree",stock:"25"}) return a;
+create (a:Apparel {name:"T-Shirts",stock:"7"}) return a;
+create (a:Apparel {name:"trousers",colour:"black",stock:"20"}) return a;
+create (a:Apparel {name:"Frock",stock:"7"}) return a;
+create (a:Apparel {name:"Shirt",stock:"9"}) return a;
+create (s:Size {name:"S"}) return s;
+create (s:Size {name:"M"}) return s;
+create (s:Size {name:"L"}) return s;
+match(s:Section),(a:Apparel) where s.name="Female" and a.name="Kurta" create (s)-[:Has]-
+>(a) return s,a;
+match(s:Section),(a:Apparel) where s.name="Female" and a.name="Saree" create (s)-[:Has]-
+>(a) return s,a;
+match(s:Section),(a:Apparel) where s.name="Male" and a.name="shirt" create (s)-[:Has]-
+>(a) return s,a;
+match(s:Section),(a:Apparel) where s.name="Male" and a.name="trousers" create (s)-[:Has]-
+>(a) return s,a;
+match(s:Section),(a:Apparel) where s.name="Kids" and a.name="Frock" create (s)-[:Has]-
+>(a) return s,a;
+create (ss:SalesStaff {name:"Smita"}) return ss;
+create (ss:SalesStaff {name:"Geeta"}) return ss;
+create (ss:SalesStaff {name:"Seeta"}) return ss;
+create (ss:SalesStaff {name:"Raman"}) return ss;
+match(ss:SalesStaff),(s:Section) where s.name="Kids" and ss.name="Smita" create (ss)-
+[:Work_in]->(s) return ss,s;
+match(ss:SalesStaff),(s:Section) where s.name="Female" and ss.name="Geeta" create (ss)-
+[:Work_in]->(s) return ss,s;
+match(ss:SalesStaff),(s:Section) where s.name="Male" and ss.name="Seeta" create (ss)-
+[:Work_in]->(s) return ss,s;
+match(ss:SalesStaff),(s:Section) where s.name="Kids" and ss.name="Raman" create (ss)-
+[:Work_in]->(s) return ss,s;
+
+1.
+match(s:Section),(a:Apparel) where s.name="Female" and (s)-[:Has]->(a) return a.name;
+
+2.
+match(ss:SalesStaff),(s:Section) where s.name="Kids" and (ss)-[:Work_in]->(s) return ss.name;
+
+3.
+match (a:Apparel) where a.name="trousers" and a.colour="black" return a.name, a.colour,a.stock;
+
+4.
+

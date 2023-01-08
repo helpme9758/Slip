@@ -1,0 +1,67 @@
+		Slip 10
+
+1. Write a program to read a character and a string from user and remove
+first and last occurrence of the character from the string. Display
+resultant string after reversing its case.
+
+object strrev
+{
+def reverseString(ch:Char):Char=
+{
+if(ch.isLower)
+ch.toUpper;
+else
+ch.toLower;
+}
+def main(args:Array[String])
+{
+var ch=' ';
+var str=" ";
+println("Enter String:");
+str=scala.io.StdIn.readLine();
+var str1=new StringBuilder(str);
+println("Enter character:");
+ch=scala.io.StdIn.readChar();
+str1.deleteCharAt(str1.indexOf(ch.toString()));
+var str3=str1.deleteCharAt(str1.lastIndexOf(ch.toString())).toString;
+var str4=str3.map(reverseString)
+println(str4);
+}
+}
+
+
+2.
+create (u:University{department:"Maths"})return u; 
+create (u:University{department:"Geology"})return u; 
+create (u:University{department:"Chemistry"})return u; 
+create (c:Courses{name:"Personality Development"})return c; 
+create (c:Courses{name:"Social Work"})return c; 
+create (c:Courses{name:"Human Services"})return c; 
+create (p:Person{name:"Rohit",rating:"4"}) return p;
+create (p:Person{name:"Manoj",rating:"5"}) return p;
+create (p:Person{name:"Om", rating:"3"}) return p;
+create (p:Person{name:"Shubham",rating:"2"}) return p;
+match(u:University),(c:Courses) where u.department="Maths" and c.name="Personality Development" create (u)-[:has_course]->(c) return u,c;
+match(u:University),(c:Courses) where u.department="Maths" and c.name="Social Work" create (u)-[:has_course]->(c) return u,c;
+match(u:University),(c:Courses) where u.department="Geology" and c.name="Social Work" create (u)-[:has_course]->(c) return u,c;
+match(u:University),(c:Courses) where u.department="Geology" and c.name="Human Services" create (u)-[:has_course]->(c) return u,c;
+match(u:University),(c:Courses) where u.department="Chemistry" and c.name="Human Services" create (u)-[:has_course]->(c) return u,c;
+match(u:University),(c:Courses) where u.department="Chemistry" and c.name="Social Work" create (u)-[:has_course]->(c) return u,c;
+match(p:Person),(c:Courses) where p.name="Rohit" and c.name="Social Work" create (c)-[:reviewd_by]->(p) return p,c;
+match(p:Person),(c:Courses) where p.name="Manoj" and c.name="Social Work" create (c)-[:reviewd_by]->(p) return p,c;
+match(p:Person),(c:Courses) where p.name="Shubham" and c.name="Personality Development" create (c)-[:reviewd_by]->(p) return p,c;
+match(p:Person),(c:Courses) where p.name="Om" and c.name="Human Services" create (c)-[:reviewd_by]->(p) return p,c;
+
+
+
+1.
+match (u:University),(c:Courses) where u.department="Chemistry" and (u)-[:has_course]->(c) return c.name;
+
+2.
+match(n) return *;
+
+3.
+
+
+4.
+match (u:University),(c:Courses),(p:Person) where p.rating="5" and u.department="Maths" and (u)-[:has_course]->(c)-[:reviewd_by]->(p) return c.name;

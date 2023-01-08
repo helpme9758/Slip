@@ -1,0 +1,68 @@
+		Slip 7
+
+1. Create lists using five different methods and display each of
+them.(List style, java style, fill, range, tabulate methods)
+
+object list1
+{
+def main(args:Array[String])
+{
+//For creating in lisp style
+val list=10::20::30::Nil
+println("Lisp style is:-"+list)
+//For creating in Java style
+val list2=List(11,22,33)
+println("Java style is:-"+list2)
+//For creating in fill
+val x3=List.fill(3)("food") // it will print food 3 times
+println("Fill is:-"+x3)
+//For creating in range
+val x1=List.range(1,10)
+println("Range is:-"+x1) // it will print from 1 to 9
+//For creating tabulate method
+val x4=List.tabulate(5)(n=>n*n) // it will print square of nos from 0 to 4
+println("Tabulated Format is:-"+x4)
+}
+}
+
+
+2.
+create (h:Hospital {name:"Jehangir"}) return h;
+create (h:Hospital {name:"Rubi"}) return h;
+create (h:Hospital {name:"Sahyadri"}) return h;
+create(s:Specialization{name:"Pediatric"}) return s;
+create(s:Specialization{name:"Orthopedic"}) return s;
+create(s:Specialization{name:"Gynaec"}) return s;
+create (p:Person {name:"Vishal",rating:"5"}) return p;
+create (p:Person {name:"Rohit",rating:"4"}) return p;
+create (p:Person {name:"Shubhem",rating:"2"}) return p;
+create (d:Doctor {name:"Aarohi",visit:"Monday"}) return d;
+create (d:Doctor {name:"Renuka",visit:"Sundsy"}) return d;
+create (d:Doctor {name:"Sneha",visit:"Tuesday"}) return d;
+match(h:Hospital),(s:Specialization) where h.name="Jehangir" and s.name="Gynaec" create (h)-[:Specialized_in]->(s) return h,s;
+match(h:Hospital),(s:Specialization) where h.name="Jehangir" and s.name="Pediatric" create (h)-[:Specialized_in]->(s) return h,s;
+match(h:Hospital),(s:Specialization) where h.name="Rubi" and s.name="Orthopedic" create (h)-[:Specialized_in]->(s) return h,s;
+match(h:Hospital),(s:Specialization) where h.name="Sahyadri" and s.name="Gynaec" create (h)-[:Specialized_in]->(s) return h,s;
+match(h:Hospital),(p:Person) where h.name="Sahyadri" and p.name="Vishal" create (p)-[:Review]->(h) return h,p;
+match(h:Hospital),(p:Person) where h.name="Jehangir" and p.name="Rohit" create (p)-[:Review]->(h) return h,p;
+match(h:Hospital),(p:Person) where h.name="Rubi" and p.name="Shubhem" create (p)-[:Review]->(h) return h,p;
+match(h:Hospital),(d:Doctor) where h.name="Jehangir" and d.name="Aarohi" create (h)-[:Has_Doctor]->(d) return h,d;
+match(h:Hospital),(d:Doctor) where h.name="Sahyadri" and d.name="Renuka" create (h)-[:Has_Doctor]->(d) return h,d;
+match(h:Hospital),(d:Doctor) where h.name="Rubi" and d.name="Sneha" create (h)-[:Has_Doctor]->(d) return h,d;
+
+
+
+1.
+match (h:Hospital),(s:Specialization) where s.name="Pediatric" and (h)-[:Specialized_in]->(s) return h.name;
+
+
+2.
+match (h:Hospital),(d:Doctor) where h.name="Jehangir" and (h)-[:Has_Doctor]->(d) return d.name;
+
+
+3.
+match (h:Hospital),(s:Specialization) where s.name="Gynaec" and (h)-[:Specialized_in]->(s) return h.name;
+
+
+4.
+match (h:Hospital),(p:Person) where h.name="Jehangir" and p.rating>="3" and (p)-[:Review]->(h) return p.name;

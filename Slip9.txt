@@ -1,0 +1,88 @@
+		Slip 9
+
+1.  Write a program to calculate transpose of a matrix and check if the
+resultant matrix is lower triangular or not
+
+object transpose_lt
+{
+def main(args:Array[String])
+{
+var mat=Array.ofDim[Int](3,3);
+var rmat=Array.ofDim[Int](3,3);
+var isLower:Boolean=true;
+println("Enter Matrix");
+for(i<-0 to 2)
+{
+for(j<-0 to 2)
+{
+mat(i)(j)=readInt(); //scala.io.StdIn.
+}
+}
+println("Matrix is:");
+for(i<-0 to 2)
+{
+for(j<-0 to 2)
+{
+print(mat(i)(j)+" ");
+}
+println();
+}
+for(i<-0 to 2)
+{
+for(j<-0 to 2)
+{
+rmat(i)(j)=mat(j)(i);
+}
+}
+println("Transepose of Matrix is:");
+for(i<-0 to 2)
+{
+for(j<-0 to 2)
+{
+print(rmat(i)(j)+" ");
+}
+println();
+}
+for(i<-0 to 2)
+{
+for(j<-0 to 2)
+{
+if(i<j)
+{
+if(rmat(i)(j)!=0)
+isLower=false;
+}
+}
+}
+if(isLower==true)
+println("Is Lower Triangular");
+else
+println("Is not Lower Triangular");
+}
+}
+
+2.
+create (v:Vehicle{type:"Heavy Vehicle",characteristics:"800kg load"}) return v;
+create (v:Vehicle{type:"Light Vehicle",characteristics:"500kg load"}) return v;
+create (c:Customer{name:"Rohit",rating:"4"}) return c;
+create (c:Customer{name:"Manoj",rating:"5"}) return c;
+create (c:Customer{name:"Om", rating:"3"}) return c;
+create (c:Customer{name:"Shubham",rating:"2"}) return c;
+match(v:Vehicle),(c:Customer) where v.type="Heavy Vehicle" and c.name="Rohit" create (c)-[:buyed]->(v) return v,c;
+match(v:Vehicle),(c:Customer) where v.type="Heavy Vehicle" and c.name="Manoj" create (c)-[:buyed]->(v) return v,c;
+match(v:Vehicle),(c:Customer) where v.type="Light Vehicle" and c.name="Om" create (c)-[:buyed]->(v) return v,c;
+match(v:Vehicle),(c:Customer) where v.type="Heavy Vehicle" and c.name="Om" create (c)-[:buyed]->(v) return v,c;
+match(v:Vehicle),(c:Customer) where v.type="Light Vehicle" and c.name="Shubham" create (c)-[:buyed]->(v) return v,c;
+
+
+1.
+match(v:Vehicle) where v.type="Heavy Vehicle" return v.characteristics;
+
+2.
+match(v:Vehicle),(c:Customer) where v.type="Light Vehicle" and (c)-[:buyed]->(v) return c.name;
+
+3.
+
+
+4.
+match(v:Vehicle),(c:Customer) where c.rating>="4" and (c)-[:buyed]->(v) return v.type;

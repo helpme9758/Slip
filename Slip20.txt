@@ -1,0 +1,28 @@
+Slip:20
+1.
+
+
+
+2.
+db.hospital.insert({hname:"Jahangir Hospital",haddr:"Pune Station",speciality:["pediatric","gynac","dental","orthopedic"]});
+db.hospital.insert({hname:"Deenanath Hospital",haddr:"Erandwane",speciality:["pediatric","gynac","orthopedic"]});
+db.hospital.insert({hname:"Sancheti Hospital",haddr:"Shivajinagar",speciality:["pediatric","orthopedic"]});
+db.hospital.insert({hname:"Sasoon Hospital",haddr:"Yerawada",speciality:["pediatric","orthopedic","dental"]});
+
+db.doctor.insert({dname:"dr.rahul",age:30,hospital:"Jahangir Hospital",day:"monday",speciality:"gynac"});
+db.doctor.insert({dname:"dr.sawant",age:32,hospital:"Jahangir Hospital",day:"monday",speciality:"orthopedic"});
+
+ db.person.insert({pname:"rama",age:22,hnmae:"Jahangir Hospital",speciality:"pediatric",rating:8})
+ db.person.insert({pname:"rema",age:22,hname:"Jahangir Hospital",speciality:"dental",rating:5})
+ db.person.insert({pname:"seema",age:22,hname:"Jahangir Hospital",speciality:"gynac", rating:2})
+ db.person.insert({pname:"meena",age:22,hname:"Jahangir Hospital",speciality:"orthopedic",rating:4})
+ db.person.insert({pname:"mane",age:22,hname:"Jahangir Hospital",speciality:"gynac",rating:5})
+ db.person.insert({pname:"reshma",age:22,hname:"Jahangir Hospital",speciality:"gynac",rating:6})
+
+
+queries-->
+a)db.hospital.find({speciality:"pediatric"});	
+b)db.doctor.find({$and:[{hospital:"Jahangir Hospital"},{day:"monday"}]})
+c)db.person.aggregate({$match:{speciality:"gynac"}},{$sort:{"_id":1}},{$project:{_id:"$recom"}})
+d)db.person.aggregate({$match:{rating:{$gte:3}}},{$project:{_id:"$pname"}})
+ 

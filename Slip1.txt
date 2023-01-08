@@ -1,0 +1,112 @@
+				Slip 1
+1. Write a program for multiplication of two matrices. Find determinant
+of resultant matrix.
+
+object Main{
+    def main(args:Array[String]){
+        
+        print("Enter the number of rows for first matrix: ")
+        val row = scala.io.StdIn.readInt()
+        print("Enter the number of columns for second matrix: ")
+        val col = scala.io.StdIn.readInt()
+
+        var matrix1 = Array.ofDim[Int](row,col)
+        
+        for(i<-0 until row){
+            for(j<-0 until col){
+                print("Enter the element: ")
+                var element = scala.io.StdIn.readInt()
+                matrix1(i)(j) = element
+            }
+        }
+        print("Enter the number of rows for second matrix: ")
+        val row2 = scala.io.StdIn.readInt()
+        print("Enter the number of columns for second matrix: ")
+        val col2 = scala.io.StdIn.readInt()
+
+        var matrix2 = Array.ofDim[Int](row2,col2)
+        for(i<-0 until row2){
+            for(j<-0 until col2){
+                print("Enter the element: ")
+                var element = scala.io.StdIn.readInt()
+                matrix2(i)(j) = element
+            }
+        }
+        
+        println("Matrix 1 ")
+        for(i<-0 until row){
+            for(j<-0 until col){
+                print(matrix1(i)(j))
+                print(" ")
+            }
+            println()
+        }
+        println("Matrix 2 ")
+        for(i<-0 until row2){
+            for(j<-0 until col2){
+                print(matrix2(i)(j))
+                print(" ")
+            }
+            println()
+        }
+        
+        var c = Array.ofDim[Int](row, col2)
+        for(i<- 0 until row){
+            for(j<-0 until col2){
+                for(k<-0 until col){
+                    c(i)(j) = c(i)(j) + matrix1(i)(k) * matrix2(k)(j)
+                }
+            }
+        }
+        println("Matrix multiplication ")
+        for(i<-0 until row){
+            for(j<-0 until col2){
+                print(c(i)(j))
+                print(" ")
+            }
+            println()
+        }
+    }
+} 
+
+
+2
+create(p:Person {Name:"Rohit"}) return p;
+create(p:Person {Name:"Shubham"}) return p;
+create(p:Person {Name:"Rushi"}) return p;
+create(p:Person {Name:"Manoj"}) return p;
+create(c:Children {Name:"AAA"}) return c;
+create(c:Children {Name:"BBB"}) return c;
+create(c:Children {Name:"CCC"}) return c;
+create(g:GrandParents {Name:"ZZZ",Relation:"GrandFather"}) return g;
+create(g:GrandParents {Name:"NNN",Relation:"GrandMother"}) return g;
+create(g:GrandParents {Name:"YYY",Relation:"GrandMother"}) return g;
+create(w:Works {Name:"Finnance"}) return w;
+create(w:Works {Name:"Sales"}) return w;
+match (p:Person),(w:Works) where p.Name ="Rohit" and w.Name="Finnance" create (p)-[:works_at]->(w) return p,w;
+match (p:Person),(w:Works) where p.Name ="Shubham" and w.Name="Sales" create (p)-[:works_at]->(w) return p,w;
+match (p:Person),(w:Works) where p.Name ="Manoj" and w.Name="Finnance" create (p)-[:works_at]->(w) return p,w;
+match (p:Person),(w:Works) where p.Name ="Rushi" and w.Name="Finnance" create (p)-[:works_at]->(w) return p,w;
+match (p:Person),(p1:Person) where p.Name ="Manoj" and p1.Name="Shubham" create (p)-[:friend_of]->(p1) return p,p1;
+match (p:Person),(p1:Person) where p.Name ="Manoj" and p1.Name="Rohit" create (p)-[:friend_of]->(p1) return p,p1;
+match (p:Person),(p1:Person) where p.Name ="Manoj" and p1.Name="Rushi" create (p)-[:friend_of]->(p1) return p,p1;
+match (p:Person),(p1:Person) where p.Name ="Shubham" and p1.Name="Rushi" create (p)-[:friend_of]->(p1) return p,p1;
+match (p:Person),(c:Children) where p.Name ="Shubham" and c.Name="AAA" create (c)-[:Child_of]->(p) return c,p;
+match (p:Person),(c:Children) where p.Name ="Rohit" and c.Name="BBB" create (c)-[:Child_of]->(p) return c,p;
+match (p:Person),(c:Children) where p.Name ="Manoj" and c.Name="CCC" create (c)-[:Child_of]->(p) return c,p;
+match (g:GrandParents),(c:Children) where g.Name ="ZZZ" and c.Name="AAA" create (g)-[:GrandParent_of]->(c) return g,c;
+match (g:GrandParents),(c:Children) where g.Name ="YYY" and c.Name="BBB" create (g)-[:GrandParent_of]->(c) return g,c;
+match (g:GrandParents),(c:Children) where g.Name ="NNN" and c.Name="CCC" create (g)-[:GrandParent_of]->(c) return g,c;
+
+
+1.
+match(c:Children),(p:Person) where (c)-[:Child_of]->(p) return p.Name;
+
+2.
+match(w:Works),(p:Person) where w.Name="Finnance" and (p)-[:works_at]->(w) return p.Name;
+
+3.
+match (p:Person)-[:friend_of]->(p1:Person) with p,count(p1) as Maxfriend return p.Name,max(Maxfriend)
+
+4.
+match(g:GrandParents),(c:Children) where g.Relation="GrandMother" and (g)-[:GrandParent_of]->(c) return g.Name;
