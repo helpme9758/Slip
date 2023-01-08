@@ -1,6 +1,53 @@
 Slip:20
 1.
-
+1.Create a MAP for storing the following information about 5 students,
+where each Student is described with Rollno, Name and marks in
+two subjects. Display Student information with highest percentage.
+class student(var rollno:Int, var sname:String,var sub1:Double,var sub2:Double)
+	{
+	  def percentage():Double=
+	  {
+	    var total:Double=sub1+sub2;
+	    var per:Double=(total/100)*100
+	    return per;
+	  }
+		def display()
+		{
+		println("---------------------------");
+		println("Name:"+rollno);
+		println("Name:"+sname);
+		println("Subject 1:"+sub1);
+		println("Subject 2:"+sub2);
+		}
+	}
+object stud
+		{
+		def main(args:Array[String])
+		{
+		  var b=0;
+		  var max:Double=0;
+		val e1=new student(1,"Ashish",40,35);
+		val e2=new student(2,"Rohit",41,30)
+		val e3= new student(3,"Shubham",31,42);
+		val e4 =new student(4,"Tanmay",45,47);
+		var e5=new student(5,"Akshay",30,44);
+		var m1:Map[Int,student]=Map(1->e1,2->e2,3->e3,4->e4,5->e5);
+		for((k,v)<-m1)
+		{
+		  var a:Double=v.percentage();
+		  if(max<a)
+		  {
+		   max=a;
+		   b=k;
+		   var c=v;
+		  }
+		}
+		println("Highest Percentage Student");
+		m1(b).display();
+		println("With Percentage : "+max);
+	 
+		}
+}
 
 
 2.
