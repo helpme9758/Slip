@@ -11,11 +11,14 @@ object strdisp
 	var str:Array[String]=Array("HelloGoodMorning","HelloGoodNight","HelloGoodAfternoon")
 	var str1=" "
 	println("Enter string:")
-	str1=readLine()
+	str1=scala.io.StdIn.readLine()
 	var str2=str :+str1
-	for(j<-str2)
+	for(j<-str)
 	{
-	println(j)
+	 if(j.contains(str1))
+	 {
+	     println(j)
+	 }
 	}
 	}
 }
