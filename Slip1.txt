@@ -7,7 +7,7 @@ object Main{
         
         print("Enter the number of rows for first matrix: ")
         val row = scala.io.StdIn.readInt()
-        print("Enter the number of columns for second matrix: ")
+        print("Enter the number of columns for first matrix: ")
         val col = scala.io.StdIn.readInt()
 
         var matrix1 = Array.ofDim[Int](row,col)
